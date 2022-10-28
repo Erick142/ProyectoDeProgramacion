@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import proyect.programacion.service.ServicioUsuario;
 
+import javax.servlet.http.HttpSession;
+
 @RequestMapping("/usuario")
 @Controller
 public class ControladorUsuario {
@@ -22,7 +24,7 @@ public class ControladorUsuario {
     }
     @PostMapping("/validarSesion")
     public String validarSesion(@RequestParam(name = "email") String email,
-                                @RequestParam(name = "contraseña") String contraseña){
+                                @RequestParam(name = "contraseña") String contraseña, HttpSession session){
         if (!servicioUsuario.existe(email)){
             //el usuario no existe
             return "login";
@@ -31,7 +33,8 @@ public class ControladorUsuario {
             //credenciales incorrectas
             return "login";
         }
-        return "home";
+        session.setAttribute("usuarioEmail",email);
+        return "redirect:http://localhost:8080/catalogo";
     }
     @PostMapping("/registrarse")
     public String registrarce(@RequestParam(name = "nombreDeUsuario")String nombreDeUsuario,

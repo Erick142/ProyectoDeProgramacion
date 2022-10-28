@@ -43,7 +43,7 @@ public class ControladorPedido {
                         @RequestParam(name = "cantidad", required = true, defaultValue = "null") int cantidad,
                         @RequestParam(name = "fecha",    required = true) LocalDate fecha,
                         @RequestParam(name = "usuario",  required = true) Usuario usuario){
-        repoPedido.save(new Pedido(usuario,producto,cantidad,fecha));
+        repoPedido.save(new Pedido(producto,cantidad));
         return "confirmacion";
     }
 

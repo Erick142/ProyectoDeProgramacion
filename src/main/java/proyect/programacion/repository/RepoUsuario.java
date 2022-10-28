@@ -6,5 +6,7 @@ import proyect.programacion.model.Pedido;
 import proyect.programacion.model.Usuario;
 
 @Repository
-public interface RepoUsuario extends CrudRepository<Usuario,String> {
+public interface RepoUsuario extends CrudRepository<Usuario,String>{
+
+}
 

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>crear producto</title>
+</head>
+<body>
+<form action="" id="form">
+    <div th:each="producto:${session.carrito.entrySet()}" th:value="${producto.getKey()}" class="id">
+        <span th:text="${repo.findById(producto.getKey()).get().getNombre()}"></span>
+        <span>cantidad: </span> <input type="number" min="1"
+                                       th:max="${repo.findById(producto.getKey()).get().getStock()}"
+                                       th:value="${producto.getValue()}" class="cantidad">
+        <span th:text="'valor:'+${repo.findById(producto.getKey()).get().getPrecio()*producto.getValue()}"></span>
+    </div>
+    <button type="submit">comprar</button>
+</form>
+<script>
+    let form=document.getElementById("form");
+    var ids=document.getElementsByClassName("id");
+    var cantidades=document.getElementsByClassName("cantidad");
+    form.addEventListener("submit",function (a){
+        a.preventDefault()
+        var arrayIds=[]
+        var arrayCantidades=[]
+        for (let id of ids){
+            arrayIds.push(id.getAttribute("value"))
+        }
+        for (let cantidad of cantidades){
+            arrayCantidades.push(cantidad.value)
+        }
+        var json={"ids":arrayIds, "cantidades":arrayCantidades}
+        fetch("/comprar",{
+            method:"POST",
+            headers:{'Content-Type': 'application/json'},
+            body:JSON.stringify(json)
+        }).then(value => window.location.href = "/misCompras" )
+    })
+
+</script>
+</body>
+</html>
