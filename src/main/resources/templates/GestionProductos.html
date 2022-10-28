@@ -29,7 +29,7 @@
     <td th:text="${producto.precio}"></td>
     <td th:text="${producto.stock}"></td>
     <td th:text="${producto.categoria}"></td>
-    <td> <a data-bs-toggle="modal" data-bs-target="#modalEditar" class="btn btn-primary">Editar</a>
+    <td> <a th:href="@{/editarproducto/{id}(id=${producto.id})}" data-bs-toggle="modal" data-bs-target="#modalEditar" class="btn btn-primary">Editar</a>
         <a th:href="@{/borrarproducto/{id}(id=${producto.id})}" class="btn btn-danger">Borrar</a>
     </td>
 </tr>
@@ -39,75 +39,7 @@
 
 
 
-<!--Modal agregar producto-->
-<div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content" style="align-items: center" >
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalAgregarLabel"><span style="color: black">Agregar nuevo producto</span></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" >
-                <form action="nuevoproducto" method="post" class="row" id="formularioProd">
-                    <label for="nombreProd" class="col">Nombre del producto</label>
-                    <input type="text" name="nombre" id="nombreProd" placeholder="nombre producto" style="border-radius: 30px">
 
-                    <label for="descripcionProd" class="col">Descripción</label>
-                    <input type="text"  name="descripcion" id="descripcionProd" class="form-control m-2" placeholder="descripción producto" style="border-radius: 30px">
-
-                    <label for="cantidadProd" class="col">stock</label>
-                    <input type="number" min="1" name="stock" id="cantidadProd" class="form-control m-2" placeholder="stock" style="border-radius: 30px">
-
-                    <label for="precioProd" class="col">Precio</label>
-                    <input type="number" min="1" name="precio" id="precioProd" class="form-control m-2" placeholder="precio" style="border-radius: 30px">
-
-                    <label for="categoriaProd" class="col">Categoría</label>
-                    <input type="text" id="categoriaProd" name="categoria" placeholder="categoria" style="border-radius: 30px">
-
-                    <div class="row my-3 g-5">
-                        <button type="submit" class="col-6 p-2 " style="background-color: #FB4E4E; border:none; color: white; border-radius: 14px; " id="btnGuardarAgregar">Guardar</button>
-                        <button type="button" class="col-6 p-2" style="background-color: #FB4E4E; border:none; color: white; border-radius: 14px; " id="btnCancelarAgregar" data-dismiss="modal">Cancelar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--Modal editar producto-->
-<div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content" style="align-items: center" >
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalEditarLabel"><span style="color: black">Editar producto</span></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" >
-                <form action="editar" method="post" class="row" id="formularioEditProd">
-                    <label for="nombreProd" class="col">Nombre del producto</label>
-                    <input type="text" name="nombre" id="nombreProdEdit"  placeholder="nombre producto" style="border-radius: 30px">
-
-                    <label for="descripcionProd" class="col">Descripción</label>
-                    <input type="text"  name="descripcion" id="descripcionProdEdit" class="form-control m-2" placeholder="descripción producto" style="border-radius: 30px">
-
-                    <label for="cantidadProd" class="col">stock</label>
-                    <input type="number" min="1" name="stock" id="cantidadProdEdit" class="form-control m-2" placeholder="stock" style="border-radius: 30px">
-
-                    <label for="precioProd" class="col">Precio</label>
-                    <input type="number" min="1" name="precio" id="precioProdEdit" class="form-control m-2" placeholder="precio" style="border-radius: 30px">
-
-                    <label for="categoriaProd" class="col">Categoría</label>
-                    <input type="text" id="categoriaProdEdit" name="categoria" placeholder="categoria" style="border-radius: 30px">
-
-                    <div class="row my-3 g-5">
-                        <button type="submit" class="col-6 p-2 " style="background-color: #FB4E4E; border:none; color: white; border-radius: 14px; " id="btnGuardarEdit">Guardar</button>
-                        <button type="button" class="col-6 p-2" style="background-color: #FB4E4E; border:none; color: white; border-radius: 14px; " id="btnCancelarEdit" data-dismiss="modal">Cancelar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div th:replace="/fragments/footer :: bootstrap"></div>
 </body>

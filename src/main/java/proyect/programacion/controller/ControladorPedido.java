@@ -29,28 +29,26 @@ public class ControladorPedido {
     }
 
 
-    @PostMapping("/nuevoPedido")
-    public String crear(@RequestParam(name = "producto", required = true) Producto producto,
-                        @RequestParam(name = "cantidad", required = true) int cantidad,
-                        @RequestParam(name = "fecha",    required = true) LocalDate fecha,
-                        @RequestParam(name = "usuario",  required = true) Usuario usuario){
+    @PostMapping("/nuevopedido")
+    public String crear(@RequestParam(name = "producto") Producto producto,
+                        @RequestParam(name = "cantidad") int cantidad,
+                        @RequestParam(name = "fecha") LocalDate fecha,
+                        @RequestParam(name = "usuario") Usuario usuario){
         repoPedido.save(new Pedido(usuario,producto,cantidad,fecha));
-        return "CRUDpedidos";
+        return "GestionPedidos";
     }
 
     @PostMapping("/editar/{id}")
     public String editar(@PathVariable(value = "id") int id,
-                         @RequestParam(name = "producto", required = true) Producto producto,
-                        @RequestParam(name = "cantidad", required = true) int cantidad,
-                        @RequestParam(name = "fecha",    required = true) LocalDate fecha,
-                        @RequestParam(name = "usuario",  required = true) Usuario usuario){
+                         @RequestParam(name = "producto") Producto producto,
+                        @RequestParam(name = "cantidad") int cantidad){
 
         Pedido pedido=repoPedido.findById(id).get();
         pedido.setProducto(producto);
         pedido.setCantidad(cantidad);
         repoPedido.save(pedido);
 
-        return "CRUDpedidos";
+        return "GestionPedidos";
     }
 
     @DeleteMapping("/borrar/{id}")

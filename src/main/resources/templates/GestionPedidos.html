@@ -7,7 +7,7 @@
 </head>
 <body>
 <div>
-    <a th:href="@{/nuevoPedido/}" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgregar">Agregar</a>
+    <a th:href="@{/nuevoPedido/}" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modaNuevoPedido">Agregar</a>
     <br>
     <div class="container">
 
@@ -36,44 +36,6 @@
         </table>
     </div>
 </div>
-
-
-<!--Modal agregar producto-->
-<div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content" style="align-items: center" >
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalAgregarLabel"><span style="color: black">Agregar nuevo producto</span></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" >
-                <!--agregar-->
-                <form class="row" id="formularioProd">
-                    <label for="nombreProd" class="col">Nombre del producto</label>
-                    <input type="text" id="nombreProd" class="form-control m-2" placeholder="nombre producto" style="border-radius: 30px">
-
-                    <label for="descripcionProd" class="col">Descripción</label>
-                    <input type="text" id="descripcionProd" class="form-control m-2" placeholder="descripción producto" style="border-radius: 30px">
-
-                    <label for="cantidadProd" class="col">Cantidad</label>
-                    <input type="number" min="1" id="cantidadProd" class="form-control m-2" placeholder="cantidad" style="border-radius: 30px">
-
-                    <label for="categoriaProd" class="col">Categoría</label>
-                    <input type="text" id="categoriaProd" class="form-control m-2" placeholder="categoria" style="border-radius: 30px">
-
-                    <div class="row my-3 g-5">
-                        <button type="submit" class="col-6 p-2 " style="background-color: #FB4E4E; border:none; color: white; border-radius: 14px; " id="btnGuardarAgregar">Guardar</button>
-                        <button type="submit" class="col-6 p-2" style="background-color: #FB4E4E; border:none; color: white; border-radius: 14px; " id="btnCancelarAgregar">Cancelar</button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
 
 <div th:replace="/fragments/footer :: bootstrap"></div>
 </body>

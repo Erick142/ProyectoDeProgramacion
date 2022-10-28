@@ -29,7 +29,7 @@ public class ControladorProducto {
     }
 
 
-    @PostMapping("/nuevoProducto")
+    @PostMapping("/nuevoproducto")
     public String crear(@RequestParam(name = "nombre") String nombre,
                         @RequestParam(name = "descripcion") String descripcion,
                         @RequestParam(name = "stock") int stock,
@@ -40,15 +40,17 @@ public class ControladorProducto {
     }
 
     @PostMapping("/editarproducto/{id}")
-    public String editar(Model model,
+    public String editar(
                          @PathVariable(value = "id") int id,
                          @RequestParam(name = "nombre", required = true) String nombre,
                          @RequestParam(name = "descripcion", required = true) String descripcion,
                          @RequestParam(name = "stock",    required = true) int stock,
                          @RequestParam(name = "precio",  required = true) int precio,
-                         @RequestParam(name = "categoria",  required = true) String categoria){
+                         @RequestParam(name = "categoria",  required = true) String categoria
+                        //Model model,
+        ){
 
-        model.addAttribute("productoAeditar",repoProducto.findById(id));
+        //model.addAttribute("productoAeditar",repoProducto.findById(id));
         Producto producto=repoProducto.findById(id).get();
         producto.setNombre(nombre);
         producto.setDescripcion(descripcion);
