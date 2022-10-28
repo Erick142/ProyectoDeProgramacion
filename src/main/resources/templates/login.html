@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>login</title>
+</head>
+<body>
+<form action="validarSesion" method="post">
+  <legend>iniciar sesion</legend>
+  <input type="text" name="email">
+  <input type="password" name="contraseña">
+  <button type="submit">ingresar</button>
+</form>
+<form action="registrarse" method="post">
+  <legend>registrarse</legend>
+  <input type="text" name="nombreDeUsuario" placeholder="ingresa tu nombre de usuario">
+  <input type="text" name="nombre" placeholder="ingresa tu nombre">
+  <input type="text" name="apellidos" placeholder="ingresa tus apellidos">
+  <input type="text" name="email" placeholder="ingresa tu email">
+  <input type="text" name="telefono" placeholder="ingresa tu telefono">
+  <input type="text" name="direccion" placeholder="ingresa tu direccion">
+  <input type="password" name="contraseña" placeholder="ingresa tu contraseña">
+  <button type="submit">registrarme</button>
+</form>
+</body>
+</html>

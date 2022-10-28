@@ -21,6 +21,7 @@ public class ControladorPedido {
     @Autowired
     private RepoPedido repoPedido;
 
+
     @GetMapping("/pedidos")
     public List<Pedido> pedidos(){
         return (List<Pedido>) repoPedido.findAll();

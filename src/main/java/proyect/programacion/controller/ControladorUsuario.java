@@ -5,49 +5,66 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import proyect.programacion.model.Pedido;
-import proyect.programacion.model.Producto;
-import proyect.programacion.model.Usuario;
-import proyect.programacion.repository.RepoPedido;
-import proyect.programacion.repository.RepoUsuario;
+import proyect.programacion.service.ServicioUsuario;
 
-import java.io.IOException;
-import java.security.Principal;
-import java.time.LocalDate;
-import java.util.List;
-
-@RestController
+@RequestMapping("/usuario")
+@Controller
 public class ControladorUsuario {
-
     @Autowired
-    private RepoUsuario repoUsuario;
+    private ServicioUsuario servicioUsuario;
 
-    @GetMapping("/usuarios")
-    public List<Usuario> usuarios(){
-        return (List<Usuario>) repoUsuario.findAll();
+
+    @GetMapping("/login")
+    public String login(){
+        return "login";
     }
-
-    /*
-    //con vistas
-     @GetMapping("/usuarios")
-    public String pedidos(Model model){
-        model.addAttribute("pedidos",repoUsuario.findAll());
-        return "pedidos";
+    @PostMapping("/validarSesion")
+    public String validarSesion(@RequestParam(name = "email") String email,
+                                @RequestParam(name = "contraseña") String contraseña){
+        if (!servicioUsuario.existe(email)){
+            //el usuario no existe
+            return "login";
+        }
+        if (!servicioUsuario.validarInicioDeSesion(email,contraseña)){
+            //credenciales incorrectas
+            return "login";
+        }
+        return "home";
     }
-     */
-
     @PostMapping("/registrarse")
-    public String crear(@RequestParam(name = "nombre", required = true, defaultValue = "null") String nombre,
-                        @RequestParam(name = "apPaterno", required = true, defaultValue = "null") String apPaterno,
-                        @RequestParam(name = "apMaterno", required = true, defaultValue = "null") String apMaterno,
-                        @RequestParam(name = "email", required = true, defaultValue = "null") String email,
-                        @RequestParam(name = "direccion", required = true, defaultValue = "null") String direccion,
-                        @RequestParam(name = "telefono", required = true, defaultValue = "null") String telefono){
-        repoUsuario.save(new Usuario(nombre,apPaterno, apMaterno,  email,  direccion, telefono));
-        return "confirmacion";
+    public String registrarce(@RequestParam(name = "nombreDeUsuario")String nombreDeUsuario,
+                              @RequestParam(name = "nombre") String nombre,
+                              @RequestParam(name = "apellidos")String apellidos,
+                              @RequestParam(name = "email")String email,
+                              @RequestParam(name = "telefono") String telefono,
+                              @RequestParam(name = "direccion") String direccion,
+                              @RequestParam(name = "contraseña")String contraseña){
+        if (servicioUsuario.existe(email)){
+            //error el usuario ya existe;
+            return "login";
+        }
+        try {
+            String apPaterno=apellidos.split(" ")[0];
+            String apMaterno=apellidos.split(" ")[1];
+            servicioUsuario.registrar(email,nombreDeUsuario,nombre,apPaterno,apMaterno,direccion,telefono,contraseña);
+            return "login";
+        }catch (Exception e){
+            System.out.println(e);
+        }finally {
+            return "login";
+        }
     }
-
+    @GetMapping("/listado")
+    public String listado(Model model){
+        model.addAttribute("listado",servicioUsuario.encontrarTodos());
+        return "listadoDeUsuarios";
+    }
+    @PostMapping("/eliminar")
+    public String eliminar(@RequestParam(name = "eliminar")String email){
+        servicioUsuario.eliminar(email);
+        return "redirect:listado";
+    }
 
 }
