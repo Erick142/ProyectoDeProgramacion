@@ -18,7 +18,6 @@ public abstract class ServicioPedido implements RepoPedido{
     @Autowired
     private RepoPedido repoPedido;
 
-
     public Iterable<Pedido> findAllPedidos() {
         Iterable<Pedido> listadoPedidos = repoPedido.findAll();
         return listadoPedidos;

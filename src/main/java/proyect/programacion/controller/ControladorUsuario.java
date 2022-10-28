@@ -25,7 +25,7 @@ public class ControladorUsuario {
     private RepoUsuario repoUsuario;
 
     @GetMapping("/usuarios")
-    public List<Usuario> usuarios(Model model){
+    public List<Usuario> usuarios(){
         return (List<Usuario>) repoUsuario.findAll();
     }
 
@@ -38,15 +38,13 @@ public class ControladorUsuario {
     }
      */
 
-
     @PostMapping("/registrarse")
     public String crear(@RequestParam(name = "nombre", required = true, defaultValue = "null") String nombre,
                         @RequestParam(name = "apPaterno", required = true, defaultValue = "null") String apPaterno,
                         @RequestParam(name = "apMaterno", required = true, defaultValue = "null") String apMaterno,
                         @RequestParam(name = "email", required = true, defaultValue = "null") String email,
                         @RequestParam(name = "direccion", required = true, defaultValue = "null") String direccion,
-                        @RequestParam(name = "telefono", required = true, defaultValue = "null") String telefono,
-                        Principal principal) throws IOException {
+                        @RequestParam(name = "telefono", required = true, defaultValue = "null") String telefono){
         repoUsuario.save(new Usuario(nombre,apPaterno, apMaterno,  email,  direccion, telefono));
         return "confirmacion";
     }

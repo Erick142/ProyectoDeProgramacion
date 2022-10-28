@@ -11,8 +11,6 @@ import proyect.programacion.model.Pedido;
 import proyect.programacion.model.Producto;
 import proyect.programacion.model.Usuario;
 import proyect.programacion.repository.RepoPedido;
-import proyect.programacion.service.ServicioPedido;
-
 import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDate;
@@ -24,17 +22,15 @@ public class ControladorPedido {
     private RepoPedido repoPedido;
 
     @GetMapping("/pedidos")
-    public List<Pedido> pedidos(Model model){
+    public List<Pedido> pedidos(){
         return (List<Pedido>) repoPedido.findAll();
     }
 
 
     /*
     //con vistas
-
     @GetMapping("/pedidos")
     public String pedidos(Model model){
-
         model.addAttribute("pedidos",repoPedido.findAll());
         return "pedidos";
     }
@@ -45,10 +41,11 @@ public class ControladorPedido {
     public String crear(@RequestParam(name = "producto", required = true, defaultValue = "null") Producto producto,
                         @RequestParam(name = "cantidad", required = true, defaultValue = "null") int cantidad,
                         @RequestParam(name = "fecha",    required = true) LocalDate fecha,
-                        @RequestParam(name = "usuario",  required = true) Usuario usuario,
-                        Principal principal) throws IOException {
+                        @RequestParam(name = "usuario",  required = true) Usuario usuario){
         repoPedido.save(new Pedido(usuario,producto,cantidad,fecha));
         return "confirmacion";
     }
 
 }
+
+
