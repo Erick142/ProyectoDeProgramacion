@@ -20,6 +20,7 @@ public class Usuario {
     private String apMaterno;
     private String direccion;
     private String telefono;
+
     private String contraseña;
     private boolean esAdmin;
 
@@ -33,9 +34,7 @@ public class Usuario {
         this.telefono=telefono;
         this.contraseña=contraseña;
         esAdmin=false;
+
     }
 }
-
-
-
 
