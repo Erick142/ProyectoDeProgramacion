@@ -3,20 +3,16 @@ package proyect.programacion.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import proyect.programacion.model.Pedido;
 import proyect.programacion.model.Producto;
 import proyect.programacion.model.Usuario;
 import proyect.programacion.repository.RepoPedido;
-import java.io.IOException;
-import java.security.Principal;
+
 import java.time.LocalDate;
 import java.util.List;
 
-@RestController
+@Controller
 public class ControladorPedido {
     @Autowired
     private RepoPedido repoPedido;
@@ -26,25 +22,44 @@ public class ControladorPedido {
         return (List<Pedido>) repoPedido.findAll();
     }
 
-
-    /*
-    //con vistas
-    @GetMapping("/pedidos")
+    @GetMapping("/listapedidos")
     public String pedidos(Model model){
-        model.addAttribute("pedidos",repoPedido.findAll());
-        return "pedidos";
+        model.addAttribute("listaPedidos",repoPedido.findAll());
+        return "GestionPedidos";
     }
-     */
 
 
     @PostMapping("/nuevoPedido")
-    public String crear(@RequestParam(name = "producto", required = true, defaultValue = "null") Producto producto,
-                        @RequestParam(name = "cantidad", required = true, defaultValue = "null") int cantidad,
+    public String crear(@RequestParam(name = "producto", required = true) Producto producto,
+                        @RequestParam(name = "cantidad", required = true) int cantidad,
                         @RequestParam(name = "fecha",    required = true) LocalDate fecha,
                         @RequestParam(name = "usuario",  required = true) Usuario usuario){
         repoPedido.save(new Pedido(usuario,producto,cantidad,fecha));
-        return "confirmacion";
+        return "CRUDpedidos";
     }
+
+    @PostMapping("/editar/{id}")
+    public String editar(@PathVariable(value = "id") int id,
+                         @RequestParam(name = "producto", required = true) Producto producto,
+                        @RequestParam(name = "cantidad", required = true) int cantidad,
+                        @RequestParam(name = "fecha",    required = true) LocalDate fecha,
+                        @RequestParam(name = "usuario",  required = true) Usuario usuario){
+
+        Pedido pedido=repoPedido.findById(id).get();
+        pedido.setProducto(producto);
+        pedido.setCantidad(cantidad);
+        repoPedido.save(pedido);
+
+        return "CRUDpedidos";
+    }
+
+    @DeleteMapping("/borrar/{id}")
+    public String borrar(@PathVariable(value = "id") int id) {
+        repoPedido.deleteById(id);
+        return "redirect:/listapedidos";
+    }
+
+
 
 }
 

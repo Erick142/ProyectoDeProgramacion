@@ -15,7 +15,7 @@ import java.util.Date;
 @Entity
 public class Pedido {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private int cantidad;
     private LocalDate fecha;
