@@ -26,10 +26,7 @@ public class Producto {
     private int precio;
     private String categoria;
 
-    //Constructor sin imagen
-
-
-    public Producto(String nombre, String descripcion, int stock, int precio, String categoria) {
+    public Producto(String nombre, int cantidad, String descripcion,int stock,int precio,String categoria) {
         this.nombre=nombre;
         this.descripcion=descripcion;
         this. stock=stock;
