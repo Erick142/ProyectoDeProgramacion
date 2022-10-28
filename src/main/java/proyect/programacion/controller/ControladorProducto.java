@@ -11,6 +11,7 @@ import proyect.programacion.model.Pedido;
 import proyect.programacion.model.Producto;
 import proyect.programacion.model.Usuario;
 import proyect.programacion.repository.RepoPedido;
+import proyect.programacion.repository.RepoProducto;
 import proyect.programacion.service.ServicioPedido;
 
 import java.io.IOException;
@@ -19,36 +20,37 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-public class ControladorPedido {
+public class ControladorProducto {
     @Autowired
-    private RepoPedido repoPedido;
+    private RepoProducto repoProducto;
 
-    @GetMapping("/pedidos")
-    public List<Pedido> pedidos(Model model){
-        return (List<Pedido>) repoPedido.findAll();
+    @GetMapping("/productos")
+    public List<Producto> usuarios(Model model){
+        return (List<Producto>) repoProducto.findAll();
     }
-
 
     /*
     //con vistas
-
-    @GetMapping("/pedidos")
+    @GetMapping("/productos")
     public String pedidos(Model model){
 
-        model.addAttribute("pedidos",repoPedido.findAll());
-        return "pedidos";
+        model.addAttribute("productos",repoProducto.findAll());
+        return "productos";
     }
      */
 
 
-    @PostMapping("/nuevoPedido")
-    public String crear(@RequestParam(name = "producto", required = true, defaultValue = "null") Producto producto,
-                        @RequestParam(name = "cantidad", required = true, defaultValue = "null") int cantidad,
-                        @RequestParam(name = "fecha",    required = true) LocalDate fecha,
-                        @RequestParam(name = "usuario",  required = true) Usuario usuario,
+    @PostMapping("/nuevoProducto")
+    public String crear(@RequestParam(name = "nombre", required = true, defaultValue = "null") String nombre,
+                        @RequestParam(name = "descripcion", required = true, defaultValue = "null") String descripcion,
+                        @RequestParam(name = "stock",    required = true) int stock,
+                        @RequestParam(name = "precio",  required = true) int precio,
+                        @RequestParam(name = "categoria",  required = true) String categoria,
                         Principal principal) throws IOException {
-        repoPedido.save(new Pedido(usuario,producto,cantidad,fecha));
+        repoProducto.save(new Producto(nombre,descripcion,stock,precio,categoria));
         return "confirmacion";
     }
+
+
 
 }

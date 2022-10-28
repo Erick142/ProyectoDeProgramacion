@@ -22,4 +22,16 @@ public class Usuario {
     private String email;
     private String direccion;
     private String telefono;
+
+    public Usuario(String nombre, String apPaterno, String apMaterno, String email, String direccion,String telefono) {
+    this.nombre=nombre;
+        this.apPaterno=apPaterno;
+        this.apMaterno=apMaterno;
+        this.email=email;
+        this.direccion=direccion;
+        this.telefono=telefono;
+
+    }
 }
+
+
