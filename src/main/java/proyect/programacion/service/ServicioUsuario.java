@@ -8,7 +8,7 @@ import proyect.programacion.repository.RepoPedido;
 import proyect.programacion.repository.RepoUsuario;
 
 @Service
-public abstract class ServicioUsuario implements RepoUsuario {
+public class ServicioUsuario {
     @Autowired
     private RepoUsuario repoUsuario;
 

@@ -8,6 +8,7 @@ import proyect.programacion.model.Pedido;
 import proyect.programacion.model.Producto;
 import proyect.programacion.model.Usuario;
 import proyect.programacion.repository.RepoPedido;
+import proyect.programacion.service.ServicioPedido;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,16 +16,16 @@ import java.util.List;
 @Controller
 public class ControladorPedido {
     @Autowired
-    private RepoPedido repoPedido;
+    private ServicioPedido servicioPedido;
 
     @GetMapping("/pedidos")
     public List<Pedido> pedidos(){
-        return (List<Pedido>) repoPedido.findAll();
+        return (List<Pedido>) servicioPedido.findAllPedidos();
     }
 
     @GetMapping("/listapedidos")
     public String pedidos(Model model){
-        model.addAttribute("listaPedidos",repoPedido.findAll());
+        model.addAttribute("listaPedidos",servicioPedido.findAllPedidos());
         return "GestionPedidos";
     }
 
@@ -32,9 +33,8 @@ public class ControladorPedido {
     @PostMapping("/nuevopedido")
     public String crear(@RequestParam(name = "producto") Producto producto,
                         @RequestParam(name = "cantidad") int cantidad,
-                        @RequestParam(name = "fecha") LocalDate fecha,
                         @RequestParam(name = "usuario") Usuario usuario){
-        repoPedido.save(new Pedido(usuario,producto,cantidad,fecha));
+        servicioPedido.guardar(new Pedido(usuario,producto,cantidad));
         return "GestionPedidos";
     }
 
@@ -43,17 +43,17 @@ public class ControladorPedido {
                          @RequestParam(name = "producto") Producto producto,
                         @RequestParam(name = "cantidad") int cantidad){
 
-        Pedido pedido=repoPedido.findById(id).get();
+        Pedido pedido=servicioPedido.encontrarPorId(id).get();
         pedido.setProducto(producto);
         pedido.setCantidad(cantidad);
-        repoPedido.save(pedido);
+        servicioPedido.guardar(pedido);
 
         return "GestionPedidos";
     }
 
     @DeleteMapping("/borrar/{id}")
     public String borrar(@PathVariable(value = "id") int id) {
-        repoPedido.deleteById(id);
+        servicioPedido.eliminarPorId(id);
         return "redirect:/listapedidos";
     }
 

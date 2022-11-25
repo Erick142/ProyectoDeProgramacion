@@ -8,6 +8,5 @@ import proyect.programacion.model.Producto;
 import javax.transaction.Transactional;
 
 @Repository
-@Transactional
 public interface RepoProducto extends CrudRepository<Producto,Integer> {
 }

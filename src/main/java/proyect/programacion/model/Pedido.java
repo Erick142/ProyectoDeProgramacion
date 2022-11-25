@@ -18,7 +18,6 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private int cantidad;
-    private LocalDate fecha;
 
     @JoinColumn(name = "producto_id")
     @ManyToOne
@@ -28,11 +27,15 @@ public class Pedido {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    public Pedido(Usuario usuario, Producto producto, int cantidad, LocalDate fecha) {
+    public Pedido(Usuario usuario, Producto producto, int cantidad) {
         this.usuario=usuario;
         this.producto=producto;
         this.cantidad=cantidad;
-        this.fecha=fecha;
 
+    }
+
+    public Pedido(int cantidad, Producto producto) {
+        this.cantidad = cantidad;
+        this.producto = producto;
     }
 }

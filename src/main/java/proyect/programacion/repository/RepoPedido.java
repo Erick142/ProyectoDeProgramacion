@@ -6,6 +6,5 @@ import proyect.programacion.model.Pedido;
 import javax.transaction.Transactional;
 
 @Repository
-@Transactional
 public interface RepoPedido extends CrudRepository<Pedido,Integer> {
 }
