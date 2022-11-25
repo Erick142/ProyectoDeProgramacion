@@ -1,22 +1,30 @@
 package proyect.programacion.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.stream.Stream;
-
+@Entity
 public class Carro {
-    private ArrayList<Pedido> productosEnElCarro;
+    @Id
+    @OneToOne
+    private Usuario usuario;
+    @OneToMany
+    private ArrayList<Pedido> pedidos;
 
     public Carro() {
-        this.productosEnElCarro=new ArrayList<>();
+        this.pedidos=new ArrayList<>();
     }
 
     public ArrayList<Pedido> getProductosEnElCarro() {
-        return productosEnElCarro;
+        return pedidos;
     }
 
     public Pedido añadirAlCarro(Producto producto){
         //haySuficienteStock
-        if (productosEnElCarro.stream().anyMatch(pedido -> pedido.getId().equals(producto.getId()))){
+        if (pedidos.stream().anyMatch(pedido -> pedido.getId().equals(producto.getId()))){
             //return tratarDeAñadirStock(producto);
             if (obtener(producto).getCantidad()<=producto.getStock()){
                 añadirUno(producto);
@@ -25,7 +33,7 @@ public class Carro {
         }
         else {
 
-            productosEnElCarro.add(new Pedido(producto.getId(),producto));
+            pedidos.add(new Pedido(producto.getId(),producto));
         }
         return obtener(producto);
     }
@@ -51,27 +59,27 @@ public class Carro {
 
     public Pedido añadirUno(Producto producto){
         Pedido pedido=obtener(producto);
-        productosEnElCarro.remove(pedido);
+        pedidos.remove(pedido);
         pedido.setCantidad(pedido.getCantidad()+1);
-        productosEnElCarro.add(pedido);
+        pedidos.add(pedido);
         return pedido;
     }
     public Pedido obtener(Producto producto){
-        Stream<Pedido> productoEnCarroStream=productosEnElCarro.stream().filter(productoEnCarro1 -> productoEnCarro1.getId().equals(producto.getId()));
+        Stream<Pedido> productoEnCarroStream=pedidos.stream().filter(productoEnCarro1 -> productoEnCarro1.getId().equals(producto.getId()));
         return productoEnCarroStream.findFirst().get();
     }
     public Pedido quitarUno(Producto producto){
         Pedido pedido=obtener(producto);
-        productosEnElCarro.remove(pedido);
+        pedidos.remove(pedido);
         pedido.setCantidad(pedido.getCantidad()-1);
-        productosEnElCarro.add(pedido);
+        pedidos.add(pedido);
         return pedido;
     }
     public void eliminarDelCarro(Producto producto){
         Pedido pedido=obtener(producto);
-        productosEnElCarro.remove(pedido);
+        pedidos.remove(pedido);
     }
     public void vaciarCarro(){
-        productosEnElCarro.clear();
+        pedidos.clear();
     }
 }
