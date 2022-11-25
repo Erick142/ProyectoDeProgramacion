@@ -43,13 +43,12 @@ public class Carro {
     }
 
 
-    /*
     public boolean haySuficienteStock(Producto producto){
         Pedido pedido=obtener(producto);
         return (pedido.getCantidad()<=producto.getStock())?true:false;
     }
 
-     */
+
     public Pedido tratarDeAñadirStock(Producto producto){
         if (obtener(producto).getCantidad()<=producto.getStock()){
             añadirUno(producto);
