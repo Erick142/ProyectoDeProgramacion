@@ -37,12 +37,12 @@ public class Carro {
         }
         return obtener(producto);
     }
-    /*
+
     public boolean estaEnElCarro(Producto producto){
-        return productosEnElCarro.stream().anyMatch(productoEnCarro -> productoEnCarro.getId().equals(producto.getId()));
+        return pedidos.stream().anyMatch(productoEnCarro -> productoEnCarro.getId().equals(producto.getId()));
     }
 
-     */
+
     /*
     public boolean haySuficienteStock(Producto producto){
         Pedido pedido=obtener(producto);
