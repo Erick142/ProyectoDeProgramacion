@@ -8,5 +8,5 @@ import proyect.programacion.model.Usuario;
 import javax.transaction.Transactional;
 
 @Repository
-public interface RepoUsuario extends CrudRepository<Usuario,Integer> {
+public interface RepoUsuario extends CrudRepository<Usuario,String> {
 }

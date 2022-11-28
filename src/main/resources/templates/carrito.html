@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <div th:replace="/fragments/head :: head"></div>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <a th:href="@{/nuevoPedido/}" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modaNuevoPedido">Agregar</a>
+    <br>
+    <div class="container">
+
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#id</th>
+                <th scope="col">producto</th>
+                <th scope="col">cantidad</th>
+                <th scope="col">comprador</th>
+                <th scope="col">fecha</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pedido : ${listaPedidos}">
+                <td th:text="${pedido.id}"></td>
+                <td th:text="${pedido.producto}"></td>
+                <td th:text="${pedido.cantidad}"></td>
+                <td th:text="${pedido.usuario}"></td>
+                <td th:text="${pedido.fecha}"></td>
+                <td> <a th:href="@{/editar/{id}(id=${pedido.id})}" class="btn btn-primary">Editar</a>
+                    <a th:href="@{/borrar/{id}(id=${pedido.id})}" class="btn btn-danger">Borrar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div th:replace="/fragments/footer :: bootstrap"></div>
+</body>
+</html>

@@ -6,9 +6,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import proyect.programacion.model.Pedido;
 import proyect.programacion.model.Producto;
+import proyect.programacion.model.ProductoDetalle;
 import proyect.programacion.model.Usuario;
 import proyect.programacion.repository.RepoPedido;
 import proyect.programacion.service.ServicioPedido;
+import proyect.programacion.service.ServicioProductoDetalle;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,7 +18,16 @@ import java.util.List;
 @Controller
 public class ControladorPedido {
     @Autowired
+    private ServicioProductoDetalle servicioProductoDetalle;
+    @Autowired
     private ServicioPedido servicioPedido;
+
+    @GetMapping("/pedidos")
+    public String pedidos(Model model){
+
+        model.addAttribute("carro",servicioPedido.encontrarPedidoActual())
+    }
+    /*
 
     @GetMapping("/pedidos")
     public List<Pedido> pedidos(){
@@ -34,7 +45,7 @@ public class ControladorPedido {
     public String crear(@RequestParam(name = "producto") Producto producto,
                         @RequestParam(name = "cantidad") int cantidad,
                         @RequestParam(name = "usuario") Usuario usuario){
-        servicioPedido.guardar(new Pedido(usuario,producto,cantidad));
+        ProductoDetalle detalle=servicioProductoDetalle.guardar(new ProductoDetalle(servicioPedido.encontrarPedidoActual(usuario),producto,cantidad));
         return "GestionPedidos";
     }
 
@@ -56,6 +67,8 @@ public class ControladorPedido {
         servicioPedido.eliminarPorId(id);
         return "redirect:/listapedidos";
     }
+
+     */
 
 
 

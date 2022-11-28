@@ -31,4 +31,5 @@ public  class ServicioProducto {
     public void eliminarPorId(int id){
         repoProducto.deleteById(id);
     }
+
 }
