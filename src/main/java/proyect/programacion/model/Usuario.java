@@ -24,16 +24,7 @@ public class Usuario {
     private String telefono;
     private String password;
 
-    public Usuario(String nombre, String apPaterno, String apMaterno, String email, String direccion,String telefono, String password) {
-    this.nombre=nombre;
-        this.apPaterno=apPaterno;
-        this.apMaterno=apMaterno;
-        this.email=email;
-        this.direccion=direccion;
-        this.telefono=telefono;
-        this.password=password;
 
-    }
 }
 
 

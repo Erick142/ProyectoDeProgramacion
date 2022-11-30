@@ -22,4 +22,8 @@ public class Pedido {
     private Usuario usuario;
     private boolean comprado;
 
+    public Pedido(Usuario usuario, boolean comprado) {
+        this.usuario = usuario;
+        this.comprado = comprado;
+    }
 }

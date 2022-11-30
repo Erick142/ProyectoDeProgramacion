@@ -45,16 +45,23 @@ public class ServicioPedido {
         return array;
     }
     public ProductoDetalle agregar(ProductoDetalle productoDetalle){
-        Pedido pedidoActualutal=encontrarPedidoActual(productoDetalle.getPedido().getUsuario());
-        //si esta en el pedido actual
-        if (servicioProductoDetalle.encontrarTodosPorPedido(pedidoActualutal).stream().anyMatch(productoDetalle1 -> productoDetalle1.getProducto().getId().equals(productoDetalle.getProducto().getId()))){
-            //obtener el Producto detalle guardado
-            ProductoDetalle detalle=servicioProductoDetalle.encontrarTodosPorPedido(pedidoActualutal).stream().filter(productoDetalle1 -> productoDetalle1.getProducto().getId().equals(productoDetalle.getProducto().getId())).collect(Collectors.toList()).get(0);
-            detalle.setCantidad(productoDetalle.getCantidad());
-            return servicioProductoDetalle.guardar(detalle);
+        Pedido pedidoActual=encontrarPedidoActual(productoDetalle.getPedido().getUsuario());
+        if (estaElProductoEnElCarro(productoDetalle,pedidoActual)){
+            ProductoDetalle detalleObtenido=encontrarProductoEnCarro(productoDetalle,pedidoActual);
+            detalleObtenido.setCantidad(productoDetalle.getCantidad());
+            return servicioProductoDetalle.guardar(detalleObtenido);
         }
         else {
             return servicioProductoDetalle.guardar(productoDetalle);
         }
+    }
+    public List<ProductoDetalle> obtenerContenido(Pedido pedido){
+        return servicioProductoDetalle.encontrarTodosPorPedido(pedido);
+    }
+    public boolean estaElProductoEnElCarro(ProductoDetalle productoDetalle,Pedido pedido){
+        return servicioProductoDetalle.encontrarTodosPorPedido(pedido).stream().anyMatch(productoDetalle1 -> productoDetalle1.getProducto().getId().equals(productoDetalle.getProducto().getId()));
+    }
+    public ProductoDetalle encontrarProductoEnCarro(ProductoDetalle productoDetalle,Pedido pedido){
+        return servicioProductoDetalle.encontrarTodosPorPedido(pedido).stream().filter(productoDetalle1 -> productoDetalle1.getProducto().getId().equals(productoDetalle.getProducto().getId())).collect(Collectors.toList()).get(0);
     }
 }

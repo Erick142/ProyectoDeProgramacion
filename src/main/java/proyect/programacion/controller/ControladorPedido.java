@@ -21,13 +21,13 @@ public class ControladorPedido {
     private ServicioProductoDetalle servicioProductoDetalle;
     @Autowired
     private ServicioPedido servicioPedido;
-
+/*
     @GetMapping("/pedidos")
     public String pedidos(Model model){
 
-        model.addAttribute("carro",servicioPedido.encontrarPedidoActual())
+        model.addAttribute("carro",servicioPedido.encontrarPedidoActual());
     }
-    /*
+
 
     @GetMapping("/pedidos")
     public List<Pedido> pedidos(){

@@ -22,6 +22,9 @@ public class ServicioUsuario {
     public Usuario guardar(Usuario usuario){
         return repoUsuario.save(usuario);
     }
+    public boolean existe(String email){
+        return repoUsuario.existsById(email);
+    }
     public boolean validar(Usuario usuario){
         try{
             if (repoUsuario.existsById(usuario.getEmail())){
