@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <div th:replace="/fragments/head :: head"></div>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="validar" method="post">
+    <input type="email" name="email" placeholder="email">
+    <input type="password" name="password" placeholder="password">
+    <button type="submit">login</button>
+</form>
+<div th:replace="/fragments/footer :: bootstrap"></div>
+</body>
+</html>
